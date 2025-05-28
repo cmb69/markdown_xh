@@ -32,6 +32,10 @@ const tinyMDE = new TinyMDE.Editor({
     textarea: textarea,
     element: element
 });
+const dialog = document.querySelector("dialog.markdown_modal");
+dialog.querySelector("button").onclick = event => {
+    event.currentTarget.parentElement.parentElement.close();
+};
 let selection1;
 let selection2;
 let type;
@@ -85,7 +89,6 @@ function browse(type) {
 }
 
 function setLink(url) {
-    console.log(type);
     if (selection1 && selection2) {
         tinyMDE.setSelection(selection2, selection1);
         selection1 = selection2 = undefined;
@@ -96,7 +99,6 @@ function setLink(url) {
         tinyMDE.wrapSelection('![', `](${url})`);
     }
     tinyMDE.fireChange();
-    const dialog = document.querySelector("dialog.markdown_modal");
     dialog.close();
     dialog.querySelector("iframe").src = "about:blank";
 }
