@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Markdown" default="help">
+
+  <property name="dir" value="${project.basedir}"/>
+
+  <target name="help" description="lists available targets">
+    <exec executable="phing" outputProperty="help">
+      <arg line="-l"/>
+    </exec>
+    <echo>${help}</echo>
+  </target>
+
+  <target name="sniff" description="checks adherence to CS">
+    <exec executable="phpcs" passthru="true" checkreturn="true">
+      <arg line="--standard=PSR12 --runtime-set ignore_warnings_on_exit true classes tests admin.php index.php"/>
+    </exec>
+    <exec executable="phpcs" passthru="true" checkreturn="true">
+      <arg line="--standard=PSR12 --runtime-set ignore_warnings_on_exit true --exclude=Generic.Files.LineLength config languages"/>
+    </exec>
+  </target>
+
+  <target name="stan" description="run static analysis">
+    <exec executable="phpstan" passthru="true" checkreturn="true">
+      <arg line="--ansi analyze"/>
+    </exec>
+  </target>
+
+  <target name="test" description="runs all developer tests">
+    <exec executable="phpunit" passthru="true" checkreturn="true"/>
+  </target>
+
+  <target name="check" description="runs all checks" depends="sniff,stan,test"/>
+
+  <target name="coverage" description="generates coverage report">
+    <exec executable="phpunit" passthru="true" checkreturn="true">
+      <arg line="--coverage-html coverage"/>
+    </exec>
+  </target>
+
+  <target name="minify" description="minifies JS">
+    <exec executable="uglifyjs" checkreturn="true" dir="${dir}">
+      <arg line="markdown.js --module --compress --mangle --output markdown.min.js"/>
+    </exec>
+  </target>
+
+  <target name="gen-help" description="builds help.htm from README.md">
+    <exec executable="pandoc" logoutput="true">
+      <arg line="-s --eol=lf --template=help/template.htm -Vlang=en -Vpagetitle=&quot;User Manual&quot; -o help/help.htm README.md -t html"/>
+    </exec>
+    <exec executable="pandoc" logoutput="true">
+      <arg line="-s --eol=lf --template=help/template.htm -Vlang=de -Vpagetitle=&quot;Benutzerhandbuch&quot; -o help/help_de.htm README_DE.md -t html"/>
+    </exec>
+  </target>
+
+  <target name="build" description="builds distributable ZIP archive">
+    <exec executable="git" logoutput="true" checkreturn="true">
+      <arg line="archive -o export.zip HEAD"/>
+    </exec>
+    <unzip file="export.zip" todir="export"/>
+    <delete file="export.zip"/>
+    <phingcall target="minify">
+      <property name="dir" value="export/"/>
+    </phingcall>
+    <move todir="dist">
+      <fileset dir="export">
+        <include name="views/*.php"/>
+      </fileset>
+      <filterchain>
+        <replaceregexp>
+          <regexp pattern="&lt;\?(?!=|php)" replace="&lt;?php "/>
+        </replaceregexp>
+      </filterchain>
+    </move>
+    <move todir="dist">
+      <fileset dir="export">
+        <exclude name=".github/**"/>
+        <exclude name=".phive/**"/>
+        <exclude name="help/template.htm"/>
+        <exclude name="tests/**"/>
+        <exclude name="README*.md"/>
+        <exclude name="build.xml"/>
+        <exclude name="composer.*"/>
+        <exclude name="phpstan.*"/>
+        <exclude name="phpunit.xml"/>
+        <exclude name="teplad.xml"/>
+      </fileset>
+    </move>
+    <delete dir="export"/>
+    <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
+    <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
+    <zip destfile="Markdown_XH-0.1-dev.zip" basedir="dist" prefix="markdown/"/>
+    <delete dir="dist"/>
+  </target>
+
+  <target name="build-patch" description="builds a distributable update package">
+    <fail unless="patchee" message="patchee is not defined!"/>
+    <unzip file="Markdown_XH-0.1-dev.zip" todir="current"/>
+    <unzip file="${patchee}" todir="patchee"/>
+    <copy todir="dist">
+      <fileset dir="current">
+        <different targetdir="patchee" ignoreFileTimes="true"/>
+      </fileset>
+    </copy>
+    <delete>
+      <fileset dir="dist/markdown">
+        <include name="config/config.php"/>
+        <include name="languages/??.php"/>
+      </fileset>
+    </delete>
+    <if>
+      <available file="dist/cmarkdownhart/css/stylesheet.css"/>
+      <then>
+        <move file="dist/markdown/css/stylesheet.css" tofile="dist/markdown/css/stylesheet-1.1-dev.css"/>
+      </then>
+    </if>
+    <zip destfile="Markdown_XH-0.1-dev-update-from-0.x.zip" basedir="dist" includeemptydirs="false"/>
+    <delete dir="patchee" quiet="true"/>
+    <delete dir="current" quiet="true"/>
+    <delete dir="dist" quiet="true"/>
+  </target>
+
+</project>

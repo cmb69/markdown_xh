@@ -1,0 +1,4 @@
+/.phpunit.result.cache
+/tools
+/vendor
+/composer.lock
