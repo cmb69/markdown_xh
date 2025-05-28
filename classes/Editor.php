@@ -37,16 +37,11 @@ class Editor
     {
         global $hjs, $bjs, $pth;
         $hjs .= $this->view->render("head", []);
-        $bjs .= '<script>' . $this->filebrowser() . '</script>'
-            . "<script src=\"{$pth["folder"]["plugins"]}markdown/markdown.js\"></script>"
-            . <<<'EOS'
-                <dialog class="markdown_modal">
-                <p class="markdown_buttons"><button type="button" onclick='this.parentElement.parentElement.close()'>close</button></p>
-                <div>
-                <iframe src="about:blank"></iframe>
-                <div>
-                </dialog>
-                EOS;
+        $script = $pth["folder"]["plugins"] . "markdown/markdown.js";
+        $bjs .= '<script>' . $this->filebrowser() . '</script>';
+        $bjs .= $this->view->render("editor", [
+            "script" => $script,
+        ]);
     }
 
     private function filebrowser(): string
