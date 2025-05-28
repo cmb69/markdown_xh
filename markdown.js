@@ -17,65 +17,72 @@
  * along with Markdown_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const textarea = document.querySelector('.xh-editor');
-const button = document.createElement('button');
-button.textContent = "Save";
-textarea.form.appendChild(button);
-const toolbar = document.createElement("div");
-textarea.before(toolbar);
-const element = document.createElement("div");
-element.style.height = textarea.style.height;
-element.style["overflow-y"] = "scroll";
-element.style.border = "1px solid #ccc";
-textarea.before(element);
-const tinyMDE = new TinyMDE.Editor({
-    textarea: textarea,
-    element: element
-});
+let currentEditor;
+let selection1;
+let selection2;
+let type;
+
 const dialog = document.querySelector("dialog.markdown_modal");
 dialog.querySelector("button").onclick = event => {
     event.currentTarget.parentElement.parentElement.close();
 };
-let selection1;
-let selection2;
-let type;
-var commandBar = new TinyMDE.CommandBar({
-    element: toolbar,
-    editor: tinyMDE,
-    commands: [
-        'bold',
-        'italic',
-        'strikethrough',
-        '|',
-        'code',
-        '|',
-        'h1', 'h2',
-        '|',
-        'ul', 'ol',
-        '|',
-        'blockquote',
-        'hr',
-        '|',
-        {
-            name: 'insertLink', 
-            action: editor => {
-                selection1 = editor.getSelection(true);
-                selection2 = editor.getSelection();
-                type = "link";
-                browse("downloads");
-            }
-        },
-        {
-            name: 'insertImage', 
-            action: editor => {
-                selection1 = editor.getSelection(true);
-                selection2 = editor.getSelection();
-                type = "image";
-                browse("images");
-            }
-        },
-    ],
-});
+
+function init_tinyMDE() {
+    const textarea = document.querySelector('.xh-editor');
+    const button = document.createElement('button');
+    button.textContent = "Save";
+    textarea.form.appendChild(button);
+    const toolbar = document.createElement("div");
+    textarea.before(toolbar);
+    const element = document.createElement("div");
+    element.style.height = textarea.style.height;
+    element.style["overflow-y"] = "scroll";
+    element.style.border = "1px solid #ccc";
+    textarea.before(element);
+    const tinyMDE = new TinyMDE.Editor({
+        textarea: textarea,
+        element: element
+    });
+    var commandBar = new TinyMDE.CommandBar({
+        element: toolbar,
+        editor: tinyMDE,
+        commands: [
+            'bold',
+            'italic',
+            'strikethrough',
+            '|',
+            'code',
+            '|',
+            'h1', 'h2',
+            '|',
+            'ul', 'ol',
+            '|',
+            'blockquote',
+            'hr',
+            '|',
+            {
+                name: 'insertLink', 
+                action: editor => {
+                    currentEditor = editor;
+                    selection1 = editor.getSelection(true);
+                    selection2 = editor.getSelection();
+                    type = "link";
+                    browse("downloads");
+                }
+            },
+            {
+                name: 'insertImage', 
+                action: editor => {
+                    currentEditor = editor;
+                    selection1 = editor.getSelection(true);
+                    selection2 = editor.getSelection();
+                    type = "image";
+                    browse("images");
+                }
+            },
+        ],
+    });
+}
 
 function browse(type) {
     const dialog = document.querySelector("dialog.markdown_modal");
@@ -90,15 +97,15 @@ function browse(type) {
 
 function setLink(url) {
     if (selection1 && selection2) {
-        tinyMDE.setSelection(selection2, selection1);
+        currentEditor.setSelection(selection2, selection1);
         selection1 = selection2 = undefined;
     }
     if (type === "link") {
-        tinyMDE.wrapSelection('[', `](${url})`);
+        currentEditor.wrapSelection('[', `](${url})`);
     } else if (type === "image") {
-        tinyMDE.wrapSelection('![', `](${url})`);
+        currentEditor.wrapSelection('![', `](${url})`);
     }
-    tinyMDE.fireChange();
+    currentEditor.fireChange();
     dialog.close();
     dialog.querySelector("iframe").src = "about:blank";
 }

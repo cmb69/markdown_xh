@@ -38,8 +38,7 @@ class Editor
         $this->view = $view;
     }
 
-    /** @param list<string> $classes */
-    public function init(array $classes, string $config, Request $request): Response
+    public function include(Request $request): Response
     {
         $hjs = $this->view->render("head", []);
         $bjs = $this->view->render("editor", [
@@ -48,5 +47,12 @@ class Editor
                 ->with("editor", "markdown")->with("prefix", $this->baseFolder)->with("type", "TYPE")->relative(),
         ]);
         return Response::create()->withHjs($hjs)->withBjs($bjs);
+    }
+
+    /** @param list<string> $classes */
+    public function init(array $classes, string $config, Request $request): Response
+    {
+        $response = $this->include($request);
+        return $response->withBjs($response->bjs() . "<script>init_tinyMDE()</script>\n");
     }
 }
