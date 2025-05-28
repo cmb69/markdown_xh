@@ -38,28 +38,10 @@ class Editor
         global $hjs, $bjs, $pth;
         $hjs .= $this->view->render("head", []);
         $script = $pth["folder"]["plugins"] . "markdown/markdown.js";
-        $bjs .= '<script>' . $this->filebrowser() . '</script>';
+        $url = CMSIMPLE_BASE . "?&filebrowser=editorbrowser&editor=markdown&prefix=" . CMSIMPLE_BASE . "&type"; // @phpstan-ignore-line
         $bjs .= $this->view->render("editor", [
             "script" => $script,
+            "url" => $url,
         ]);
-    }
-
-    private function filebrowser(): string
-    {
-        if (!XH_ADM) { // @phpstan-ignore-line
-            return "";
-        }
-        $url = CMSIMPLE_BASE . "?&filebrowser=editorbrowser&editor=markdown&prefix=" . CMSIMPLE_BASE . "&type"; // @phpstan-ignore-line
-        return <<<EOS
-            markdown_filebrowser = function(type) {
-                const dialog = document.querySelector("dialog.markdown_modal");
-                const iframe = dialog.querySelector("iframe");
-                iframe.src = "$url=" + type;
-                dialog.showModal();
-                const buttons = dialog.querySelector(".markdown_buttons");
-                iframe.width = dialog.clientWidth - 10;
-                iframe.height = dialog.clientHeight - buttons.clientHeight - 10;
-            }
-        EOS;
     }
 }

@@ -58,7 +58,7 @@ var commandBar = new TinyMDE.CommandBar({
                 selection1 = editor.getSelection(true);
                 selection2 = editor.getSelection();
                 type = "link";
-                markdown_filebrowser("downloads");
+                browse("downloads");
             }
         },
         {
@@ -67,11 +67,22 @@ var commandBar = new TinyMDE.CommandBar({
                 selection1 = editor.getSelection(true);
                 selection2 = editor.getSelection();
                 type = "image";
-                markdown_filebrowser("images");
+                browse("images");
             }
         },
     ],
 });
+
+function browse(type) {
+    const dialog = document.querySelector("dialog.markdown_modal");
+    const iframe = dialog.querySelector("iframe");
+    const url = dialog.dataset.url;
+    iframe.src = url + "=" + type;
+    dialog.showModal();
+    const buttons = dialog.querySelector(".markdown_buttons");
+    iframe.width = dialog.clientWidth - 10;
+    iframe.height = dialog.clientHeight - buttons.clientHeight - 10;
+}
 
 function setLink(url) {
     console.log(type);
