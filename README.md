@@ -6,6 +6,7 @@
 - [Quick Start](#quick-start)
 - [Settings](#settings)
 - [Usage](#usage)
+- [Limitations](#limitations)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 - [Credits](#credits)
@@ -28,14 +29,17 @@ is available for download on Github.
 
 The installation is done as with many other CMSimple_XH plugins.
 
-1.  Backup the data on your server.
-1.  Unzip the distribution on your computer.
-1.  Upload the whole folder `markdown/` to your server into
-    the `plugins/` folder of CMSimple_XH.
-1.  Set write permissions to the subfolders `config/`, `css/`, and
-    `languages/`.
-1.  Check under `Plugins` → `Markdown` in the back-end of the website,
-    if all requirements are fulfilled.
+1. Backup the data on your server.
+1. Unzip the distribution on your computer.
+1. Upload the whole folder `markdown/` to your server into
+   the `plugins/` folder of CMSimple_XH.
+1. Set write permissions to the subfolders `config/`, `css/`, and
+   `languages/`.
+1. Move the file `plugins/markdown/filebrowser/internal.php` to
+   `plugins/filebrowser/editorhooks/markdown/script.php` so that the internal
+   filebrowser can be used from the editor.
+1. Check under `Plugins` → `Markdown` in the back-end of the website,
+   if all requirements are fulfilled.
 
 ## Quick Start
 
@@ -57,6 +61,11 @@ needs.
 The look of Markdown_XH can be customized under `Stylesheet`.
 
 ## Usage
+
+## Limitations
+
+There is no support for filebrowsers other than the internal filebrowser of
+CMSimple_XH.
 
 ## Troubleshooting
 

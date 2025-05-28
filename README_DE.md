@@ -6,6 +6,7 @@
 - [Schnellstart](#schnellstart)
 - [Einstellungen](#einstellungen)
 - [Verwendung](#verwendung)
+- [Einschränkungen](#einschränkungen)
 - [Fehlerbehebung](#fehlerbehebung)
 - [Lizenz](#lizenz)
 - [Danksagung](#danksagung)
@@ -34,6 +35,9 @@ Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch.
    `plugins/` Verzeichnis von CMSimple_XH  hoch.
 1. Machen Sie die Unterordner `config/`, `css/` und `languages/`
    beschreibbar.
+1. Verschieben Sie die Datei `plugins/markdown/filebrowser/internal.php` nach
+   `plugins/filebrowser/editorhooks/markdown/script.php`, so dass der interne
+   Dateibrowser vom Editor verwendet werden kann.
 1. Prüfen Sie unter `Plugins` → `Markdown` im Administrationsbereich,
    ob alle Voraussetzungen erfüllt sind.
 
@@ -57,6 +61,11 @@ Wünschen gemäß anpassen.
 Das Aussehen von Markdown_XH kann unter `Stylesheet` angepasst werden.
 
 ## Verwendung
+
+## Einschränkungen
+
+Andere Dateibrowser als der interne Dateibrowser von CMSimple_XH werden nicht
+unterstützt.
 
 ## Fehlerbehebung
 

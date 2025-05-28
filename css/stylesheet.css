@@ -1,0 +1,19 @@
+div.editor-toolbar button {
+    color: black;
+}
+
+dialog.markdown_modal {
+    margin: auto;
+    width: 70%;
+    height: 70%;
+    border: none;
+}
+dialog.markdown_modal .markdown_buttons {
+    text-align: right;
+}
+dialog.markdown_modal iframe {
+    border: none;
+}
+dialog.markdown_modal::backdrop {
+    backdrop-filter: blur(3px);
+}
