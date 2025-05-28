@@ -57,7 +57,11 @@ class Editor
     /** @param list<string> $classes */
     public function init(array $classes, string $config, Request $request): Response
     {
+        if (empty($classes)) {
+            $classes = ["xh-editor"];
+        }
+        $json = json_encode($classes);
         $response = $this->include($request);
-        return $response->withBjs($response->bjs() . "<script>markdown.init_tinyMDE()</script>\n");
+        return $response->withBjs($response->bjs() . "<script>markdown.initByClasses($json)</script>\n");
     }
 }

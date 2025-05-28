@@ -31,8 +31,13 @@ markdown.dialog.querySelector("button").onclick = () => {
     markdown.dialog.close();
 };
 
-markdown.init_tinyMDE = function () {
-    const textarea = document.querySelector('.xh-editor');
+markdown.initByClasses = function (classnames) {
+    for (classname of classnames) {
+        document.querySelectorAll("." + classname).forEach(markdown.init);
+    }
+};
+
+markdown.init = function (textarea) {
     const button = document.createElement('button');
     button.textContent = "Save";
     textarea.form.appendChild(button);
