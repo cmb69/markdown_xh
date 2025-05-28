@@ -81,7 +81,7 @@ function browse(type) {
     const dialog = document.querySelector("dialog.markdown_modal");
     const iframe = dialog.querySelector("iframe");
     const url = dialog.dataset.url;
-    iframe.src = url + "=" + type;
+    iframe.src = url.replace(/TYPE$/, type);
     dialog.showModal();
     const buttons = dialog.querySelector(".markdown_buttons");
     iframe.width = dialog.clientWidth - 10;

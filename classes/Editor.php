@@ -21,6 +21,7 @@
 
 namespace Markdown;
 
+use Plib\Request;
 use Plib\View;
 
 class Editor
@@ -33,15 +34,14 @@ class Editor
     }
 
     /** @param list<string> $classes */
-    public function init(array $classes = array(), bool $config = false): void
+    public function init(array $classes, bool $config, Request $request): void
     {
         global $hjs, $bjs, $pth;
         $hjs .= $this->view->render("head", []);
-        $script = $pth["folder"]["plugins"] . "markdown/markdown.js";
-        $url = CMSIMPLE_BASE . "?&filebrowser=editorbrowser&editor=markdown&prefix=" . CMSIMPLE_BASE . "&type"; // @phpstan-ignore-line
         $bjs .= $this->view->render("editor", [
-            "script" => $script,
-            "url" => $url,
+            "script" => $pth["folder"]["plugins"] . "markdown/markdown.js",
+            "url" => $request->url()->path($pth["folder"]["base"])->with("filebrowser", "editorbrowser")
+                ->with("editor", "markdown")->with("prefix", $pth["folder"]["base"])->with("type", "TYPE")->relative(),
         ]);
     }
 }
