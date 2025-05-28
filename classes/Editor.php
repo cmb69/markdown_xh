@@ -26,22 +26,26 @@ use Plib\View;
 
 class Editor
 {
+    private string $baseFolder;
+    private string $pluginFolder;
     private View $view;
 
-    public function __construct(View $view)
+    public function __construct(string $baseFolder, string $pluginFolder, View $view)
     {
+        $this->baseFolder = $baseFolder;
+        $this->pluginFolder = $pluginFolder;
         $this->view = $view;
     }
 
     /** @param list<string> $classes */
     public function init(array $classes, bool $config, Request $request): void
     {
-        global $hjs, $bjs, $pth;
+        global $hjs, $bjs;
         $hjs .= $this->view->render("head", []);
         $bjs .= $this->view->render("editor", [
-            "script" => $pth["folder"]["plugins"] . "markdown/markdown.js",
-            "url" => $request->url()->path($pth["folder"]["base"])->with("filebrowser", "editorbrowser")
-                ->with("editor", "markdown")->with("prefix", $pth["folder"]["base"])->with("type", "TYPE")->relative(),
+            "script" => $this->pluginFolder . "markdown/markdown.js",
+            "url" => $request->url()->path($this->baseFolder)->with("filebrowser", "editorbrowser")
+                ->with("editor", "markdown")->with("prefix", $this->baseFolder)->with("type", "TYPE")->relative(),
         ]);
     }
 }

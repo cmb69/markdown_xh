@@ -29,7 +29,12 @@ class Plugin
 
     public static function editor(): Editor
     {
-        return new Editor(self::view());
+        global $pth;
+        return new Editor(
+            $pth["folder"]["base"],
+            $pth["folder"]["plugins"],
+            self::view()
+        );
     }
 
     private static function view(): View
