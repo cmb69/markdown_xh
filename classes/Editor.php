@@ -30,6 +30,7 @@ class Editor
     private string $baseFolder;
     private string $pluginFolder;
     private View $view;
+    private bool $included = false;
 
     public function __construct(string $baseFolder, string $pluginFolder, View $view)
     {
@@ -40,6 +41,10 @@ class Editor
 
     public function include(Request $request): Response
     {
+        if ($this->included) {
+            return Response::create();
+        }
+        $this->included = true;
         $hjs = $this->view->render("head", []);
         $bjs = $this->view->render("editor", [
             "script" => $this->pluginFolder . "markdown/markdown.js",

@@ -27,14 +27,19 @@ class Plugin
 {
     public const VERSION = "0.1-dev";
 
+    private static ?Editor $editor = null;
+
     public static function editor(): Editor
     {
         global $pth;
-        return new Editor(
-            $pth["folder"]["base"],
-            $pth["folder"]["plugins"],
-            self::view()
-        );
+        if (self::$editor === null) {
+            self::$editor = new Editor(
+                $pth["folder"]["base"],
+                $pth["folder"]["plugins"],
+                self::view()
+            );
+        }
+        return self::$editor;
     }
 
     private static function view(): View
