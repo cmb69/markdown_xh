@@ -18,3 +18,22 @@
  * You should have received a copy of the GNU General Public License
  * along with Markdown_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+if (!defined("CMSIMPLE_XH_VERSION")) {
+    http_response_code(403);
+    exit;
+}
+
+/**
+ * @var string $admin
+ * @var string $o
+ */
+
+XH_registerStandardPluginMenuItems(false);
+if (XH_wantsPluginAdministration("markdown")) {
+    $o .= print_plugin_admin("off");
+    switch ($admin) {
+        default:
+            $o .= plugin_admin_common();
+    }
+}

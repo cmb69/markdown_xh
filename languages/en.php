@@ -1,3 +1,3 @@
 <?php
 
-$plugin_tx['makrdown']['foo'] = "bar";
+$plugin_tx['markdown']['foo'] = "bar";
