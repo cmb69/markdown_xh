@@ -3,7 +3,8 @@
 use Markdown\Plugin;
 use Plib\Request;
 
-function init_markdown($classes = array(), $config = false): void
+/** @param list<string> $classes */
+function init_markdown(array $classes = array(), string $config = ""): void
 {
     Plugin::editor()->init($classes, $config, Request::current())();
 }

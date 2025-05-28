@@ -39,7 +39,7 @@ class Editor
     }
 
     /** @param list<string> $classes */
-    public function init(array $classes, bool $config, Request $request): Response
+    public function init(array $classes, string $config, Request $request): Response
     {
         $hjs = $this->view->render("head", []);
         $bjs = $this->view->render("editor", [
