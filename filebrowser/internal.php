@@ -7,7 +7,7 @@
 $script = <<<EOS
 <script>
 function setLink(url) {
-    window.parent.setLink(url);
+    window.parent.markdown.setLink(url);
 }
 </script>
 EOS;

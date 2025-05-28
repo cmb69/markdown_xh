@@ -17,17 +17,19 @@
  * along with Markdown_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-let currentEditor;
-let selection1;
-let selection2;
-let type;
+var markdown = {};
 
-const dialog = document.querySelector("dialog.markdown_modal");
-dialog.querySelector("button").onclick = event => {
+markdown.currentEditor = null;
+markdown.selection1 = null;
+markdown.selection2 = null;
+markdown.type = null;
+
+markdown.dialog = document.querySelector("dialog.markdown_modal");
+markdown.dialog.querySelector("button").onclick = event => {
     event.currentTarget.parentElement.parentElement.close();
 };
 
-function init_tinyMDE() {
+markdown.init_tinyMDE = function () {
     const textarea = document.querySelector('.xh-editor');
     const button = document.createElement('button');
     button.textContent = "Save";
@@ -63,28 +65,28 @@ function init_tinyMDE() {
             {
                 name: 'insertLink', 
                 action: editor => {
-                    currentEditor = editor;
-                    selection1 = editor.getSelection(true);
-                    selection2 = editor.getSelection();
-                    type = "link";
-                    browse("downloads");
+                    markdown.currentEditor = editor;
+                    markdown.selection1 = editor.getSelection(true);
+                    markdown.selection2 = editor.getSelection();
+                    markdown.type = "link";
+                    markdown.browse("downloads");
                 }
             },
             {
                 name: 'insertImage', 
                 action: editor => {
-                    currentEditor = editor;
-                    selection1 = editor.getSelection(true);
-                    selection2 = editor.getSelection();
-                    type = "image";
-                    browse("images");
+                    markdown.currentEditor = editor;
+                    markdown.selection1 = editor.getSelection(true);
+                    markdown.selection2 = editor.getSelection();
+                    markdown.type = "image";
+                    markdown.browse("images");
                 }
             },
         ],
     });
-}
+};
 
-function browse(type) {
+markdown.browse = function (type) {
     const dialog = document.querySelector("dialog.markdown_modal");
     const iframe = dialog.querySelector("iframe");
     const url = dialog.dataset.url;
@@ -93,19 +95,19 @@ function browse(type) {
     const buttons = dialog.querySelector(".markdown_buttons");
     iframe.width = dialog.clientWidth - 10;
     iframe.height = dialog.clientHeight - buttons.clientHeight - 10;
-}
+};
 
-function setLink(url) {
-    if (selection1 && selection2) {
-        currentEditor.setSelection(selection2, selection1);
-        selection1 = selection2 = undefined;
+markdown.setLink = function (url) {
+    if (markdown.selection1 && markdown.selection2) {
+        markdown.currentEditor.setSelection(markdown.selection2, markdown.selection1);
+        markdown.selection1 = markdown.selection2 = undefined;
     }
-    if (type === "link") {
-        currentEditor.wrapSelection('[', `](${url})`);
-    } else if (type === "image") {
-        currentEditor.wrapSelection('![', `](${url})`);
+    if (markdown.type === "link") {
+        markdown.currentEditor.wrapSelection('[', `](${url})`);
+    } else if (markdown.type === "image") {
+        markdown.currentEditor.wrapSelection('![', `](${url})`);
     }
-    currentEditor.fireChange();
-    dialog.close();
-    dialog.querySelector("iframe").src = "about:blank";
-}
+    markdown.currentEditor.fireChange();
+    markdown.dialog.close();
+    markdown.dialog.querySelector("iframe").src = "about:blank";
+};

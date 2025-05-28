@@ -58,6 +58,6 @@ class Editor
     public function init(array $classes, string $config, Request $request): Response
     {
         $response = $this->include($request);
-        return $response->withBjs($response->bjs() . "<script>init_tinyMDE()</script>\n");
+        return $response->withBjs($response->bjs() . "<script>markdown.init_tinyMDE()</script>\n");
     }
 }
