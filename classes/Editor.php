@@ -21,14 +21,22 @@
 
 namespace Markdown;
 
+use Plib\View;
+
 class Editor
 {
+    private View $view;
+
+    public function __construct(View $view)
+    {
+        $this->view = $view;
+    }
+
     /** @param list<string> $classes */
     public function init(array $classes = array(), bool $config = false): void
     {
         global $hjs, $bjs, $pth;
-        $hjs .= '<link rel="stylesheet" href="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.css">'
-            . '<script src="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.js"></script>';
+        $hjs .= $this->view->render("head", []);
         $bjs .= '<script>' . $this->filebrowser() . '</script>'
             . "<script src=\"{$pth["folder"]["plugins"]}markdown/markdown.js\"></script>"
             . <<<'EOS'

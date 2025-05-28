@@ -21,12 +21,20 @@
 
 namespace Markdown;
 
+use Plib\View;
+
 class Plugin
 {
     public const VERSION = "0.1-dev";
 
     public static function editor(): Editor
     {
-        return new Editor();
+        return new Editor(self::view());
+    }
+
+    private static function view(): View
+    {
+        global $pth, $plugin_tx;
+        return new View($pth["folder"]["plugins"] . "markdown/views/", $plugin_tx["markdown"]);
     }
 }
