@@ -19,10 +19,12 @@
 
 var markdown = {};
 
-markdown.currentEditor = null;
-markdown.selection1 = null;
-markdown.selection2 = null;
-markdown.type = null;
+markdown.current = {
+    editor: null,
+    selection1: null,
+    selection2: null,
+    type: null,
+};
 
 markdown.dialog = document.querySelector("dialog.markdown_modal");
 markdown.dialog.querySelector("button").onclick = event => {
@@ -65,20 +67,20 @@ markdown.init_tinyMDE = function () {
             {
                 name: 'insertLink', 
                 action: editor => {
-                    markdown.currentEditor = editor;
-                    markdown.selection1 = editor.getSelection(true);
-                    markdown.selection2 = editor.getSelection();
-                    markdown.type = "link";
+                    markdown.current.editor = editor;
+                    markdown.current.selection1 = editor.getSelection(true);
+                    markdown.current.selection2 = editor.getSelection();
+                    markdown.current.type = "link";
                     markdown.browse("downloads");
                 }
             },
             {
                 name: 'insertImage', 
                 action: editor => {
-                    markdown.currentEditor = editor;
-                    markdown.selection1 = editor.getSelection(true);
-                    markdown.selection2 = editor.getSelection();
-                    markdown.type = "image";
+                    markdown.current.editor = editor;
+                    markdown.current.selection1 = editor.getSelection(true);
+                    markdown.current.selection2 = editor.getSelection();
+                    markdown.current.type = "image";
                     markdown.browse("images");
                 }
             },
@@ -98,16 +100,16 @@ markdown.browse = function (type) {
 };
 
 markdown.setLink = function (url) {
-    if (markdown.selection1 && markdown.selection2) {
-        markdown.currentEditor.setSelection(markdown.selection2, markdown.selection1);
-        markdown.selection1 = markdown.selection2 = undefined;
+    if (markdown.current.selection1 && markdown.current.selection2) {
+        markdown.current.editor.setSelection(markdown.current.selection2, markdown.current.selection1);
+        markdown.current.selection1 = markdown.current.selection2 = undefined;
     }
-    if (markdown.type === "link") {
-        markdown.currentEditor.wrapSelection('[', `](${url})`);
-    } else if (markdown.type === "image") {
-        markdown.currentEditor.wrapSelection('![', `](${url})`);
+    if (markdown.current.type === "link") {
+        markdown.current.editor.wrapSelection('[', `](${url})`);
+    } else if (markdown.current.type === "image") {
+        markdown.current.editor.wrapSelection('![', `](${url})`);
     }
-    markdown.currentEditor.fireChange();
+    markdown.current.editor.fireChange();
     markdown.dialog.close();
     markdown.dialog.querySelector("iframe").src = "about:blank";
 };
