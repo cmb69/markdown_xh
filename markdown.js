@@ -27,8 +27,8 @@ markdown.current = {
 };
 
 markdown.dialog = document.querySelector("dialog.markdown_modal");
-markdown.dialog.querySelector("button").onclick = event => {
-    event.currentTarget.parentElement.parentElement.close();
+markdown.dialog.querySelector("button").onclick = () => {
+    markdown.dialog.close();
 };
 
 markdown.init_tinyMDE = function () {
@@ -89,14 +89,13 @@ markdown.init_tinyMDE = function () {
 };
 
 markdown.browse = function (type) {
-    const dialog = document.querySelector("dialog.markdown_modal");
-    const iframe = dialog.querySelector("iframe");
-    const url = dialog.dataset.url;
+    const iframe = markdown.dialog.querySelector("iframe");
+    const url = markdown.dialog.dataset.url;
     iframe.src = url.replace(/TYPE$/, type);
-    dialog.showModal();
-    const buttons = dialog.querySelector(".markdown_buttons");
-    iframe.width = dialog.clientWidth - 10;
-    iframe.height = dialog.clientHeight - buttons.clientHeight - 10;
+    markdown.dialog.showModal();
+    const buttons = markdown.dialog.querySelector(".markdown_buttons");
+    iframe.width = markdown.dialog.clientWidth - 10;
+    iframe.height = markdown.dialog.clientHeight - buttons.clientHeight - 10;
 };
 
 markdown.setLink = function (url) {
