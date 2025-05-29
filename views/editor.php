@@ -7,13 +7,14 @@ if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
 /**
  * @var View $this
  * @var string $script
- * @var string $url
+ * @var array<string,mixed> $jsConf
  */
 ?>
 
-<dialog class="markdown_modal" data-url="<?=$this->esc($url)?>">
+<dialog class="markdown_modal" data-conf='<?=$this->json($jsConf)?>'>
   <p class="markdown_buttons">
-    <button type="button">close</button>
+    <span class="markdown_caption"></span>
+    <button type="button"><?=$this->text("label_close")?></button>
   </p>
   <div>
     <iframe src="about:blank"></iframe>

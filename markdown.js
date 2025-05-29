@@ -99,8 +99,10 @@ markdown.init = function (textarea) {
 
 markdown.browse = function (type) {
     const iframe = markdown.dialog.querySelector("iframe");
-    const url = markdown.dialog.dataset.url;
-    iframe.src = url.replace(/TYPE$/, type);
+    const conf = JSON.parse(markdown.dialog.dataset.conf);
+    const caption = markdown.dialog.querySelector(".markdown_caption");
+    caption.textContent = conf["insert_" + markdown.current.type];
+    iframe.src = conf.url.replace(/TYPE$/, type);
     markdown.dialog.showModal();
     const buttons = markdown.dialog.querySelector(".markdown_buttons");
     iframe.width = markdown.dialog.clientWidth - 10;

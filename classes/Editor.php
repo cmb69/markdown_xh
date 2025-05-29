@@ -48,10 +48,20 @@ class Editor
         $hjs = $this->view->render("head", []);
         $bjs = $this->view->render("editor", [
             "script" => $this->pluginFolder . "markdown/markdown.js",
-            "url" => $request->url()->path($this->baseFolder)->with("filebrowser", "editorbrowser")
-                ->with("editor", "markdown")->with("prefix", $this->baseFolder)->with("type", "TYPE")->relative(),
+            "jsConf" => $this->jsConf($request),
         ]);
         return Response::create()->withHjs($hjs)->withBjs($bjs);
+    }
+
+    /** @return array<string,mixed> */
+    private function jsConf(Request $request): array
+    {
+        return [
+            "url" => $request->url()->path($this->baseFolder)->with("filebrowser", "editorbrowser")
+                ->with("editor", "markdown")->with("prefix", $this->baseFolder)->with("type", "TYPE")->relative(),
+            "insert_image" => $this->view->plain("label_insert_image"),
+            "insert_link" => $this->view->plain("label_insert_link"),
+        ];
     }
 
     /** @param list<string> $classes */

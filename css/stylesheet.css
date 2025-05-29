@@ -9,7 +9,13 @@ dialog.markdown_modal {
     border: none;
 }
 dialog.markdown_modal .markdown_buttons {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2em 0.5em;
+}
+dialog.markdown_modal .markdown_buttons span {
+    font-size: larger;
+    font-weight: bold;
 }
 dialog.markdown_modal iframe {
     border: none;
