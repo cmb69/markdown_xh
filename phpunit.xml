@@ -7,6 +7,9 @@
       <file>admin.php</file>
       <file>index.php</file>
     </include>
+    <exclude>
+      <directory>classes/model/parsedown</directory>
+    </exclude>
   </coverage>
   <testsuites>
     <testsuite name="default">

@@ -19,39 +19,21 @@
  * along with Markdown_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Markdown;
+namespace Markdown\Model;
 
-use Markdown\Model\Markdown;
 use Markdown\Model\Parsedown\Parsedown;
-use Plib\View;
 
-class Plugin
+class Markdown
 {
-    public const VERSION = "0.1-dev";
+    private Parsedown $parsedown;
 
-    private static ?Editor $editor = null;
-
-    public static function editor(): Editor
+    public function __construct(Parsedown $parsedown)
     {
-        global $pth;
-        if (self::$editor === null) {
-            self::$editor = new Editor(
-                $pth["folder"]["base"],
-                $pth["folder"]["plugins"],
-                self::view()
-            );
-        }
-        return self::$editor;
+        $this->parsedown = $parsedown;
     }
 
-    public static function markdown(): Markdown
+    public function toHtml(string $markdown): string
     {
-        return new Markdown(new Parsedown());
-    }
-
-    private static function view(): View
-    {
-        global $pth, $plugin_tx;
-        return new View($pth["folder"]["plugins"] . "markdown/views/", $plugin_tx["markdown"]);
+        return $this->parsedown->text($markdown);
     }
 }

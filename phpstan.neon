@@ -7,7 +7,8 @@ parameters:
     - index.php
     - init.php
   excludePaths:
-    - classes/model/parsedown
+    analyse:
+      - classes/model/parsedown
   bootstrapFiles:
     - phpstan.php
   scanFiles:
@@ -15,4 +16,3 @@ parameters:
     - ../../cmsimple/functions.php
   scanDirectories:
     - ../plib/classes
-    - classes/model/parsedown
