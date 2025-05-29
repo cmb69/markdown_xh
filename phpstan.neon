@@ -4,7 +4,6 @@ parameters:
     - classes
     - views
     - admin.php
-    - index.php
     - init.php
   excludePaths:
     analyse:
