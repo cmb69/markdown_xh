@@ -2,6 +2,7 @@
 
 namespace Markdown;
 
+use Markdown\Model\Markdown;
 use PHPUnit\Framework\TestCase;
 
 class PluginTest extends TestCase
@@ -21,5 +22,10 @@ class PluginTest extends TestCase
     public function testMakesInfoCommand(): void
     {
         $this->assertInstanceOf(InfoCommand::class, Plugin::infoCommand());
+    }
+
+    public function testMakesMarkdown(): void
+    {
+        $this->assertInstanceOf(Markdown::class, Plugin::markdown());
     }
 }
