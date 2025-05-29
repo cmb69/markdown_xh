@@ -13,6 +13,7 @@ require_once "../plib/classes/FakeRequest.php";
 require_once "../plib/classes/FakeSystemChecker.php";
 
 require_once "./classes/model/parsedown/Parsedown.php";
+require_once "./classes/model/Contents.php";
 require_once "./classes/model/Markdown.php";
 require_once "./classes/Editor.php";
 require_once "./classes/InfoCommand.php";
