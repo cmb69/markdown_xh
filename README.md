@@ -37,7 +37,7 @@ The installation is done as with many other CMSimple_XH plugins.
 1. Unzip the distribution on your computer.
 1. Upload the whole folder `markdown/` to your server into
    the `plugins/` folder of CMSimple_XH.
-1. Set write permissions to the subfolders `config/`, `css/`, and
+1. Set write permissions to the subfolders `css/`, and
    `languages/`.
 1. Move the file `plugins/markdown/filebrowser/internal.php` to
    `plugins/filebrowser/editorhooks/markdown/script.php` so that the internal
@@ -50,10 +50,6 @@ The installation is done as with many other CMSimple_XH plugins.
 The configuration of the plugin is done as with many other
 CMSimple_XH plugins in the back-end of the Website. Select
 `Plugins` → `Markdown`.
-
-You can change the default settings of Markdown_XH under
-`Config`. Hints for the options will be displayed when hovering
-over the help icons with your mouse.
 
 Localization is done under `Language`. You can translate the
 character strings to your own language if there is no appropriate

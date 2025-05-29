@@ -16,7 +16,7 @@
       <arg line="--standard=PSR12 --runtime-set ignore_warnings_on_exit true --ignore=classes/model/parsedown classes tests admin.php"/>
     </exec>
     <exec executable="phpcs" passthru="true" checkreturn="true">
-      <arg line="--standard=PSR12 --runtime-set ignore_warnings_on_exit true --exclude=Generic.Files.LineLength config languages"/>
+      <arg line="--standard=PSR12 --runtime-set ignore_warnings_on_exit true --exclude=Generic.Files.LineLength languages"/>
     </exec>
   </target>
 
@@ -87,7 +87,7 @@
       </fileset>
     </move>
     <delete dir="export"/>
-    <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
+    <!--<copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>-->
     <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
     <zip destfile="Markdown_XH-0.1-dev.zip" basedir="dist" prefix="markdown/"/>
     <delete dir="dist"/>
@@ -104,7 +104,7 @@
     </copy>
     <delete>
       <fileset dir="dist/markdown">
-        <include name="config/config.php"/>
+        <!--include name="config/config.php"/>-->
         <include name="languages/??.php"/>
       </fileset>
     </delete>

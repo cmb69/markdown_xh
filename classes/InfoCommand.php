@@ -50,7 +50,6 @@ class InfoCommand
                 $this->checkExtension("DOM"),
                 $this->checkXHVersion("1.7.0"),
                 $this->checkPlibVersion("1.10"),
-                $this->checkWritability($this->pluginFolder . "config/"),
                 $this->checkWritability($this->pluginFolder . "css/"),
                 $this->checkWritability($this->pluginFolder . "languages/"),
             ]
