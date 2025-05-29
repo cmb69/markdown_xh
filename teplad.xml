@@ -81,9 +81,13 @@
   <descriptions>
     <!-- description of the plugin, ca. 200 characters, you can use <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i>. -->
     <description lang="en">
+      This plugin is a utility plugin for other plugins. It provides a
+      conforming editor for Markdown, and a Markdown to HTML converter.
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
+      Dieses Plugin ist ein Hilfsplugin für andere Plugins. Es stellt einen
+      normgerechten Editor für Markdown, und einen Markdown zu HTML Wandler zur Verfügung.
     </description>
     <!-- additional languages are possible, i.e. da, fr, pl, ... -->
     <!-- The use of this language is limited by the website where the repository is hosted. -->
