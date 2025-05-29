@@ -17,4 +17,10 @@ class MarkdownTest extends TestCase
         $result = $this->sut()->toHtml("# Test");
         $this->assertSame("<h1>Test</h1>", $result);
     }
+
+    public function testDoesNotConvertCmsimpleScripting(): void
+    {
+        $result = $this->sut()->toHtml("#cmsimple hide#test");
+        $this->assertSame("<p>#cmsimple hide#test</p>", $result);
+    }
 }

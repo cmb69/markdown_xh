@@ -507,6 +507,9 @@ class Parsedown
 
     protected function blockHeader($Line)
     {
+        if (stripos($Line['text'], '#CMSimple') !== false) {
+            return;
+        }
         if (isset($Line['text'][1]))
         {
             $level = 1;
