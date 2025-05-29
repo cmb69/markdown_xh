@@ -1,8 +1,12 @@
+/* markdown editor */
+
 div.markdown_editor_toolbar {}
 div.markdown_editor {
     overflow-y: scroll;
     border: 1px solid #ccc;
 }
+
+/* browser dialog */
 
 dialog.markdown_modal {
     margin: auto;

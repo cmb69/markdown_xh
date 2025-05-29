@@ -45,7 +45,10 @@ class Editor
             return Response::create();
         }
         $this->included = true;
-        $hjs = $this->view->render("head", []);
+        $hjs = $this->view->render("head", [
+            "css" => $this->pluginFolder . "markdown/tiny-mde/tiny-mde.min.css",
+            "script" => $this->pluginFolder . "markdown/tiny-mde/tiny-mde.min.js",
+        ]);
         $bjs = $this->view->render("editor", [
             "script" => $this->pluginFolder . "markdown/markdown.js",
             "jsConf" => $this->jsConf($request),
