@@ -30,13 +30,16 @@
 </head>
 <body>
 <h1 id="markdown_xh">Markdown_XH</h1>
+<p>This plugin is a utility plugin for other plugins. It provides a <a href="https://wiki.cmsimple-xh.org/archiv/doku.php/plugin_interfaces#editors">conforming editor</a> for Markdown, and a Markdown to HTML converter.</p>
 <ul>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#download">Download</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#quick-start">Quick Start</a></li>
 <li><a href="#settings">Settings</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#editor">Editor</a></li>
+</ul></li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 <li><a href="#license">License</a></li>
@@ -56,13 +59,25 @@
 <li>Move the file <code>plugins/markdown/filebrowser/internal.php</code> to <code>plugins/filebrowser/editorhooks/markdown/script.php</code> so that the internal filebrowser can be used from the editor.</li>
 <li>Check under <code>Plugins</code> → <code>Markdown</code> in the back-end of the website, if all requirements are fulfilled.</li>
 </ol>
-<h2 id="quick-start">Quick Start</h2>
 <h2 id="settings">Settings</h2>
 <p>The configuration of the plugin is done as with many other CMSimple_XH plugins in the back-end of the Website. Select <code>Plugins</code> → <code>Markdown</code>.</p>
 <p>You can change the default settings of Markdown_XH under <code>Config</code>. Hints for the options will be displayed when hovering over the help icons with your mouse.</p>
 <p>Localization is done under <code>Language</code>. You can translate the character strings to your own language if there is no appropriate language file available, or customize them according to your needs.</p>
 <p>The look of Markdown_XH can be customized under <code>Stylesheet</code>.</p>
 <h2 id="usage">Usage</h2>
+<p>To convert Markdown to HTML, you just need to call</p>
+<pre><code>\Markdown\Plugin::markdown()-&gt;toHtml($markdown)</code></pre>
+<p>No additional set up is necessary, since all components are automatically loaded.</p>
+<h3 id="editor">Editor</h3>
+<p>Instead of having users to type in Markdown in a simple textarea, you can offer them the bundled Markdown editor. This is basically done like for other conforming editors, but you want to call the functions directly instead of using the general editor functions of CMSimple_XH. So instead of</p>
+<pre><code>include_editor();
+editor_replace(…);
+init_editor(…);</code></pre>
+<p>call</p>
+<pre><code>include_markdown();
+markdown_replace(…);
+init_markdown(…);</code></pre>
+<p>Note that no configuration is supported (yet), so just omit the respective arguments.</p>
 <h2 id="limitations">Limitations</h2>
 <p>There is no support for filebrowsers other than the internal filebrowser of CMSimple_XH.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>

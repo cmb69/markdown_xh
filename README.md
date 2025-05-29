@@ -1,11 +1,15 @@
 # Markdown_XH
 
+This plugin is a utility plugin for other plugins. It provides a
+[conforming editor](https://wiki.cmsimple-xh.org/archiv/doku.php/plugin_interfaces#editors)
+for Markdown, and a Markdown to HTML converter.
+
 - [Requirements](#requirements)
 - [Download](#download)
 - [Installation](#installation)
-- [Quick Start](#quick-start)
 - [Settings](#settings)
 - [Usage](#usage)
+  - [Editor](#editor)
 - [Limitations](#limitations)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
@@ -41,8 +45,6 @@ The installation is done as with many other CMSimple_XH plugins.
 1. Check under `Plugins` → `Markdown` in the back-end of the website,
    if all requirements are fulfilled.
 
-## Quick Start
-
 ## Settings
 
 The configuration of the plugin is done as with many other
@@ -61,6 +63,33 @@ needs.
 The look of Markdown_XH can be customized under `Stylesheet`.
 
 ## Usage
+
+To convert Markdown to HTML, you just need to call
+
+    \Markdown\Plugin::markdown()->toHtml($markdown)
+
+No additional set up is necessary, since all components are automatically loaded.
+
+### Editor
+
+Instead of having users to type in Markdown in a simple textarea, you can offer them
+the bundled Markdown editor.  This is basically done like for other conforming editors,
+but you want to call the functions directly instead of using the general editor
+functions of CMSimple_XH.  So instead of
+
+    include_editor();
+    editor_replace(…);
+    init_editor(…);
+
+call
+
+    include_markdown();
+    markdown_replace(…);
+    init_markdown(…);
+
+
+Note that no configuration is supported (yet), so just omit the respective
+arguments.
 
 ## Limitations
 

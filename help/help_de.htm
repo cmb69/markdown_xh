@@ -30,13 +30,16 @@
 </head>
 <body>
 <h1 id="markdown_xh">Markdown_XH</h1>
+<p>Dieses Plugin ist ein Hilfsplugin für andere Plugins. Es stellt einen <a href="https://wiki.cmsimple-xh.org/archiv/doku.php/plugin_interfaces#editors">normgerechten Editor</a> für Markdown, und einen Markdown zu HTML Wandler zur Verfügung.</p>
 <ul>
 <li><a href="#voraussetzungen">Voraussetzungen</a></li>
 <li><a href="#download">Download</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#schnellstart">Schnellstart</a></li>
 <li><a href="#einstellungen">Einstellungen</a></li>
-<li><a href="#verwendung">Verwendung</a></li>
+<li><a href="#verwendung">Verwendung</a>
+<ul>
+<li><a href="#editor">Editor</a></li>
+</ul></li>
 <li><a href="#einschränkungen">Einschränkungen</a></li>
 <li><a href="#fehlerbehebung">Fehlerbehebung</a></li>
 <li><a href="#lizenz">Lizenz</a></li>
@@ -56,13 +59,25 @@
 <li>Verschieben Sie die Datei <code>plugins/markdown/filebrowser/internal.php</code> nach <code>plugins/filebrowser/editorhooks/markdown/script.php</code>, so dass der interne Dateibrowser vom Editor verwendet werden kann.</li>
 <li>Prüfen Sie unter <code>Plugins</code> → <code>Markdown</code> im Administrationsbereich, ob alle Voraussetzungen erfüllt sind.</li>
 </ol>
-<h2 id="schnellstart">Schnellstart</h2>
 <h2 id="einstellungen">Einstellungen</h2>
 <p>Die Plugin-Konfiguration erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch im Administrationsbereich der Website. Gehen Sie zu <code>Plugins</code> → <code>Markdown</code>.</p>
 <p>Sie können die Voreinstellungen von Markdown_XH unter <code>Konfiguration</code> ändern. Hinweise zu den Optionen werden beim Überfahren der Hilfe-Icons mit der Maus angezeigt.</p>
 <p>Die Lokalisierung wird unter <code>Sprache</code> vorgenommen. Sie können die Sprachtexte in Ihre eigene Sprache übersetzen, falls keine entsprechende Sprachdatei zur Verfügung steht, oder diese Ihren Wünschen gemäß anpassen.</p>
 <p>Das Aussehen von Markdown_XH kann unter <code>Stylesheet</code> angepasst werden.</p>
 <h2 id="verwendung">Verwendung</h2>
+<p>Um Markdown in HTML zu konvertieren, muss nur folgendes aufgerufen werden:</p>
+<pre><code>\Markdown\Plugin::markdown()-&gt;toHtml($markdown)</code></pre>
+<p>Es sind keine weiteren Vorbereitungen nötig, da alle Komponenten automatisch geladen werden.</p>
+<h3 id="editor">Editor</h3>
+<p>Damit Anwender das Markdown in einem einfachen Textfeld eingeben müssen, kann der der gebündelte Markdown-Editor genutzt werden. Dies geschieht prinzipiell wie für andere normgerechte Editoren, aber die Funktionen sollten direkt aufgerufen werden, anstatt die allgemeinen Editor-Funktionen von CMSimple_XH zu verwenden. Also sollten statt</p>
+<pre><code>include_editor();
+editor_replace(…);
+init_editor(…);</code></pre>
+<p>die folgenden Aufrufe erfolgen:</p>
+<pre><code>include_markdown();
+markdown_replace(…);
+init_markdown(…);</code></pre>
+<p>Es ist zu beachten, dass (noch) keine Konfiguration unterstützt wird, so dass die entsprechenden Argumente ausgelassen werden können.</p>
 <h2 id="einschränkungen">Einschränkungen</h2>
 <p>Andere Dateibrowser als der interne Dateibrowser von CMSimple_XH werden nicht unterstützt.</p>
 <h2 id="fehlerbehebung">Fehlerbehebung</h2>
