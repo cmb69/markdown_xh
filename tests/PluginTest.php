@@ -17,4 +17,9 @@ class PluginTest extends TestCase
     {
         $this->assertInstanceOf(Editor::class, Plugin::editor());
     }
+
+    public function testMakesInfoCommand(): void
+    {
+        $this->assertInstanceOf(InfoCommand::class, Plugin::infoCommand());
+    }
 }

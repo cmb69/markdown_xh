@@ -23,6 +23,7 @@ namespace Markdown;
 
 use Markdown\Model\Markdown;
 use Markdown\Model\Parsedown\Parsedown;
+use Plib\SystemChecker;
 use Plib\View;
 
 class Plugin
@@ -42,6 +43,16 @@ class Plugin
             );
         }
         return self::$editor;
+    }
+
+    public static function infoCommand(): InfoCommand
+    {
+        global $pth;
+        return new InfoCommand(
+            $pth["folder"]["plugins"] . "markdown/",
+            new SystemChecker(),
+            self::view()
+        );
     }
 
     public static function markdown(): Markdown

@@ -19,6 +19,8 @@
  * along with Markdown_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Markdown\Plugin;
+
 if (!defined("CMSIMPLE_XH_VERSION")) {
     http_response_code(403);
     exit;
@@ -33,6 +35,9 @@ XH_registerStandardPluginMenuItems(false);
 if (XH_wantsPluginAdministration("markdown")) {
     $o .= print_plugin_admin("off");
     switch ($admin) {
+        case "":
+            $o .= Plugin::infoCommand()()();
+            break;
         default:
             $o .= plugin_admin_common();
     }

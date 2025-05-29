@@ -29,3 +29,8 @@ dialog.markdown_modal iframe {
 dialog.markdown_modal::backdrop {
     backdrop-filter: blur(3px);
 }
+
+/* plugin info */
+
+article.markdown_plugininfo {}
+article.markdown_pluginfo .markdown_syscheck {}
