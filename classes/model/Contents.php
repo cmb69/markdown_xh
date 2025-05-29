@@ -35,12 +35,20 @@ class Contents implements Countable, ArrayAccess, Iterator
     /** @var array<int,string> */
     private array $c;
     private bool $editing;
+    private Markdown $markdown;
 
     /** @param array<int,string> $c */
-    public function __construct(array $c, bool $editing)
+    public static function create(array $c, bool $editing): self
+    {
+        return new self($c, $editing, new Markdown(new Parsedown()));
+    }
+
+    /** @param array<int,string> $c */
+    public function __construct(array $c, bool $editing, Markdown $markdown)
     {
         $this->c = $c;
         $this->editing = $editing;
+        $this->markdown = $markdown;
     }
 
     public function count(): int
@@ -117,7 +125,6 @@ class Contents implements Countable, ArrayAccess, Iterator
         if ($this->editing) {
             return $contents;
         }
-        $markdown = new Markdown(new Parsedown());
-        return $markdown->toHtml((string) preg_replace('/<!--.*?-->/is', "", $contents));
+        return $this->markdown->toHtml((string) preg_replace('/<!--.*?-->/is', "", $contents));
     }
 }
