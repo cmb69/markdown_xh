@@ -41,4 +41,14 @@ class EditorTest extends TestCase
         $response = $this->sut()->replace("#the-editor", false, $request);
         $this->assertSame('markdown.initById("#the-editor")', $response);
     }
+
+    public function testIncludesOnlyOnce(): void
+    {
+        $request = new FakeRequest();
+        $sut = $this->sut();
+        $sut->include($request);
+        $response = $sut->include($request);
+        $this->assertNull($response->hjs());
+        $this->assertNull($response->bjs());
+    }
 }
