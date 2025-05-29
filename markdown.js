@@ -37,6 +37,10 @@ markdown.initByClasses = function (classnames) {
     }
 };
 
+markdown.initById = function (id) {
+    markdown.init(document.getElementById(id));
+}
+
 markdown.init = function (textarea) {
     const button = document.createElement('button');
     button.textContent = "Save";

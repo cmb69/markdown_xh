@@ -34,4 +34,11 @@ class EditorTest extends TestCase
         $response = $this->sut()->init([], false, $request);
         Approvals::verifyHtml($response->bjs());
     }
+
+    public function testReplaceReturnCorrectJS(): void
+    {
+        $request = new FakeRequest();
+        $response = $this->sut()->replace("#the-editor", false, $request);
+        $this->assertSame('markdown.initById("#the-editor")', $response);
+    }
 }

@@ -64,4 +64,10 @@ class Editor
         $response = $this->include($request);
         return $response->withBjs($response->bjs() . "<script>markdown.initByClasses($json)</script>\n");
     }
+
+    public function replace(string $id, string $config): string
+    {
+        $json = json_encode($id);
+        return "markdown.initById($json)";
+    }
 }
