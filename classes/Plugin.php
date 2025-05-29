@@ -28,7 +28,7 @@ use Plib\View;
 
 class Plugin
 {
-    public const VERSION = "0.1-dev";
+    public const VERSION = "0.1";
 
     private static ?Editor $editor = null;
 

@@ -89,13 +89,13 @@
     <delete dir="export"/>
     <!--<copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>-->
     <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
-    <zip destfile="Markdown_XH-0.1-dev.zip" basedir="dist" prefix="markdown/"/>
+    <zip destfile="Markdown_XH-0.1.zip" basedir="dist" prefix="markdown/"/>
     <delete dir="dist"/>
   </target>
 
   <target name="build-patch" description="builds a distributable update package">
     <fail unless="patchee" message="patchee is not defined!"/>
-    <unzip file="Markdown_XH-0.1-dev.zip" todir="current"/>
+    <unzip file="Markdown_XH-0.1.zip" todir="current"/>
     <unzip file="${patchee}" todir="patchee"/>
     <copy todir="dist">
       <fileset dir="current">
@@ -114,7 +114,7 @@
         <move file="dist/markdown/css/stylesheet.css" tofile="dist/markdown/css/stylesheet-1.1-dev.css"/>
       </then>
     </if>
-    <zip destfile="Markdown_XH-0.1-dev-update-from-0.x.zip" basedir="dist" includeemptydirs="false"/>
+    <zip destfile="Markdown_XH-0.1-update-from-0.x.zip" basedir="dist" includeemptydirs="false"/>
     <delete dir="patchee" quiet="true"/>
     <delete dir="current" quiet="true"/>
     <delete dir="dist" quiet="true"/>

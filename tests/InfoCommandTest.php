@@ -27,7 +27,7 @@ class InfoCommandTest extends TestCase
     public function testRendersPluginInfo(): void
     {
         $response = $this->sut()();
-        $this->assertSame("Markdown 0.1-dev", $response->title());
+        $this->assertSame("Markdown 0.1", $response->title());
         Approvals::verifyHtml($response->output());
     }
 }
