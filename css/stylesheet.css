@@ -1,5 +1,7 @@
-div.editor-toolbar button {
-    color: black;
+div.markdown_editor_toolbar {}
+div.markdown_editor {
+    overflow-y: scroll;
+    border: 1px solid #ccc;
 }
 
 dialog.markdown_modal {

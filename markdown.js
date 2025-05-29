@@ -42,15 +42,15 @@ markdown.initById = function (id) {
 }
 
 markdown.init = function (textarea) {
+    const clientHeight = textarea.clientHeight;
     const button = document.createElement('button');
     button.textContent = "Save";
     textarea.form.appendChild(button);
     const toolbar = document.createElement("div");
+    toolbar.classList.add("markdown_editor_toolbar");
     textarea.before(toolbar);
     const element = document.createElement("div");
-    element.style.height = textarea.style.height;
-    element.style["overflow-y"] = "scroll";
-    element.style.border = "1px solid #ccc";
+    element.classList.add("markdown_editor");
     textarea.before(element);
     const tinyMDE = new TinyMDE.Editor({
         textarea: textarea,
@@ -95,6 +95,7 @@ markdown.init = function (textarea) {
             },
         ],
     });
+    element.style.height = (clientHeight - toolbar.clientHeight) + "px";
 };
 
 markdown.browse = function (type) {
