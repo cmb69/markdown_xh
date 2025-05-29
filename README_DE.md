@@ -92,8 +92,9 @@ Copyright © Christoph M. Becker
 
 ## Danksagung
 
-Das Plugin wird angetrieben von [TinyMDE](https://github.com/jefago/tiny-markdown-editor).
-Vielen Dank für die Bereitstellung dieses großartigen Tools unter der MIT Lizenz!
+Das Plugin wird angetrieben von [Parsedown](https://parsedown.org/) und
+[TinyMDE](https://jefago.github.io/tiny-markdown-editor/).
+Vielen Dank für die Bereitstellung dieser großartigen Tools unter der MIT Lizenz!
 
 Das Plugin-Icon wurde von
 [Markdown icons created by brajaomar_j - Flaticon](https://www.flaticon.com/free-icons/markdown)

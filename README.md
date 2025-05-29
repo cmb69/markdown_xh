@@ -92,9 +92,9 @@ Copyright © Christoph M. Becker
 
 ## Credits
 
-The plugin is powered by [TinyMDE](https://github.com/jefago/tiny-markdown-editor).
-Many thanks for providing this great tool under the MIT license!
-
+The plugin is powered by [Parsedown](https://parsedown.org/) and
+[TinyMDE](https://jefago.github.io/tiny-markdown-editor/).
+Many thanks for providing these awesome tools under the MIT license!
 
 The plugin icon is designed by
 [Markdown icons created by brajaomar_j - Flaticon](https://www.flaticon.com/free-icons/markdown).
